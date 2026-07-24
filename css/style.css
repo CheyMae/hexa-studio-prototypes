@@ -1,9 +1,10 @@
-/* Hexa Studio Prototype — Login → Dashboard
+/* Hexa Studio Prototype -- Login to Dashboard
    Colors/spacing/radii below are pulled from live-verified Hexa tokens
-   (see hexa-studio-context/screens/[name]/binding.md for the source values).
-   Font sizes/line-heights are reconstructed from the reference screenshots,
-   not re-verified pixel-by-pixel against Hexa's type styles — good enough
-   for a UAT click-through, not a claim of production-exact typography. */
+   (see hexa-studio-context screens binding.md files for the source values).
+   Comments in this file must never contain an asterisk immediately
+   followed by a slash -- that pair closes a comment early, silently. */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
   --color-brand: #005eb3;
@@ -13,6 +14,7 @@
   --color-text-secondary: #74777f;
   --color-text-white: #fdfcff;
   --color-border-default: #e0e2eb;
+  --color-border-text-field: #c9c6c5;
   --color-surface-white: #ffffff;
   --color-error: #ba1b1b;
   --gradient-balance: linear-gradient(90deg, #054c90 11%, #036ccd 58%);
@@ -40,6 +42,10 @@
   --space-1200: 48px;
 
   --font: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Real phone viewport height -- everything taller scrolls inside it,
+     the same "fixed chrome, scrollable content" split as the Figma file. */
+  --viewport-height: 874px;
 }
 
 * { box-sizing: border-box; }
@@ -54,19 +60,24 @@ body {
 
 .screen {
   width: 402px;
-  min-height: 874px;
+  height: var(--viewport-height);
   background: var(--color-surface-white);
   position: relative;
+  overflow-y: auto;
   overflow-x: hidden;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+  animation: fade-in 0.25s ease;
 }
 
-/* ---------- Status bar / home indicator (fixed chrome) ---------- */
+/* ---------- Fixed chrome: Status Bar, App Bar, Nav Bar, Home Indicator ---------- */
+/* All four use position: sticky against .screen's own scroll box, so they stay
+   pinned in place while everything else scrolls underneath -- matching this
+   repo's rule that these four elements are always Fixed, never Scrolls. */
 
 .status-bar {
   position: sticky;
   top: 0;
-  z-index: 20;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -75,18 +86,25 @@ body {
   font-weight: 600;
   color: var(--color-text-title);
   background: transparent;
+  pointer-events: none;
 }
-.status-bar.on-dark { color: white; }
 .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+
+.fixed-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--color-surface-white);
+}
 
 .home-indicator {
   position: sticky;
   bottom: 0;
-  z-index: 20;
+  z-index: 30;
   display: flex;
   justify-content: center;
   padding: 8px 0 6px;
-  background: var(--color-surface-white);
+  pointer-events: none;
 }
 .home-indicator .pill {
   width: 134px;
@@ -134,13 +152,15 @@ body {
   color: var(--color-brand);
   cursor: pointer;
   transition: transform 0.08s ease, filter 0.15s ease;
+  flex-shrink: 0;
 }
 .icon-button:active {
   transform: scale(0.92);
   filter: brightness(0.94);
 }
 .icon-button.small { width: 36px; height: 36px; }
-.icon-button svg { width: 20px; height: 20px; }
+.icon-button img { width: 20px; height: 20px; }
+.icon-button.small img { width: 18px; height: 18px; }
 
 /* ---------- Text field ---------- */
 
@@ -151,7 +171,7 @@ body {
 .text-field input {
   width: 100%;
   height: 56px;
-  border: 1px solid var(--color-border-default);
+  border: 1px solid var(--color-border-text-field);
   border-radius: var(--radius-xlg);
   padding: 20px var(--space-400) 8px;
   font-family: var(--font);
@@ -187,6 +207,7 @@ body {
   color: var(--color-text-body);
   padding: 0;
 }
+.text-field .toggle-visibility img { width: 20px; height: 20px; }
 .text-field .supporting-text {
   display: none;
   margin-top: var(--space-100);
@@ -212,9 +233,6 @@ body {
 
 /* ---------- Page transition ---------- */
 
-.screen {
-  animation: fade-in 0.25s ease;
-}
 @keyframes fade-in {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
