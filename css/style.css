@@ -67,7 +67,11 @@ body {
   overflow-x: hidden;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
   animation: fade-in 0.25s ease;
+  /* Hide the scrollbar chrome so this reads as a real mobile screen, not a
+     desktop page with a visible scroll track -- scrolling itself still works. */
+  scrollbar-width: none;
 }
+.screen::-webkit-scrollbar { display: none; }
 
 /* ---------- Fixed chrome: Status Bar, App Bar, Nav Bar, Home Indicator ---------- */
 /* All four use position: sticky against .screen's own scroll box, so they stay
@@ -81,7 +85,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px var(--space-600) 4px;
+  height: 44px;
+  padding: 0 var(--space-600);
+  margin-bottom: -44px;
   font-size: 15px;
   font-weight: 600;
   color: var(--color-text-title);
@@ -126,7 +132,7 @@ body {
   color: var(--color-brand);
   font-family: var(--font);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   border: none;
   cursor: pointer;
   transition: transform 0.08s ease, filter 0.15s ease;
@@ -160,7 +166,6 @@ body {
 }
 .icon-button.small { width: 36px; height: 36px; }
 .icon-button img { width: 20px; height: 20px; }
-.icon-button.small img { width: 18px; height: 18px; }
 
 /* ---------- Text field ---------- */
 
@@ -173,13 +178,19 @@ body {
   height: 56px;
   border: 1px solid var(--color-border-text-field);
   border-radius: var(--radius-xlg);
-  padding: 20px var(--space-400) 8px;
+  padding: 0 var(--space-400);
   font-family: var(--font);
   font-size: 16px;
   color: var(--color-text-title);
   outline: none;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, padding 0.1s ease;
   background: var(--color-surface-white);
+}
+/* Left-center by default (reads like a plain field); once focused or filled,
+   padding opens up room at the top for the label to float into. */
+.text-field input:focus,
+.text-field input:not(:placeholder-shown) {
+  padding: 20px var(--space-400) 8px;
 }
 .text-field input:focus {
   border-color: var(--color-brand);
@@ -188,11 +199,21 @@ body {
 .text-field label {
   position: absolute;
   left: var(--space-400);
-  top: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-body);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
   pointer-events: none;
+  transition: top 0.1s ease, transform 0.1s ease, font-size 0.1s ease, font-weight 0.1s ease;
+}
+.text-field input:focus + label,
+.text-field input:not(:placeholder-shown) + label {
+  top: 8px;
+  transform: translateY(0);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-body);
 }
 .text-field .toggle-visibility {
   position: absolute;
@@ -213,7 +234,7 @@ body {
   margin-top: var(--space-100);
   padding: 0 var(--space-300);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-error);
 }
 .text-field.has-error input {

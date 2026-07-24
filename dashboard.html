@@ -17,7 +17,7 @@
     .app-bar { background: white; padding: 8px var(--space-600) var(--space-600); }
     .app-bar-top { display:flex; align-items:center; justify-content:space-between; margin-top: 24px; }
     .hexagon-tag {
-      display:inline-flex; align-items:center; padding: 6px 16px; font-size:10px; font-weight:700;
+      display:inline-flex; align-items:center; padding: 6px 16px; font-size:10px; font-weight:500;
       color: #604100; border: 2px solid #cfa632; border-radius: 16px 2px 16px 2px;
       background: linear-gradient(135deg, #ffd974 14%, rgba(255,239,197,0.62) 86%);
     }
@@ -26,13 +26,13 @@
     .app-bar-actions img { width:24px; height:24px; }
     .app-bar-actions .badge-wrap { position:relative; }
     .app-bar-actions .badge { position:absolute; top:0; right:0; width:6px; height:6px; border-radius:50%; background:var(--color-error); }
-    .greeting { font-size:20px; font-weight:700; color: var(--color-text-title); margin: 22px 0 12px; }
+    .greeting { font-size:20px; font-weight:500; color: var(--color-text-title); margin: 22px 0 12px; }
     .filters { display:flex; align-items:center; gap:10px 32px; flex-wrap:wrap; }
     .filter-chip {
       display:inline-flex; align-items:center; height:28px; padding:8px 16px; border-radius: var(--radius-pill);
-      background: var(--color-brand-secondary); color: var(--color-brand); font-size:14px; font-weight:700;
+      background: var(--color-brand-secondary); color: var(--color-brand); font-size:14px; font-weight:500;
     }
-    .filter-link { font-size:14px; font-weight:700; color: var(--color-brand); }
+    .filter-link { font-size:14px; font-weight:500; color: var(--color-brand); text-decoration: none; }
 
     .content { padding: 0 var(--space-600) var(--space-1200); }
     .balance-card {
@@ -43,14 +43,14 @@
     .balance-label-row button { background:none; border:none; color:white; cursor:pointer; display:flex; padding:0; }
     .balance-label-row img { width:16px; height:16px; }
     .amount-row { display:flex; align-items:baseline; gap: var(--space-100); }
-    .amount-row .currency { font-size:16px; font-weight:700; }
-    .amount-row .amount { font-size:28px; font-weight:700; }
-    .account-row { display:flex; align-items:center; gap: var(--space-25); font-size:12px; font-weight:700; }
+    .amount-row .currency { font-size:16px; font-weight:500; }
+    .amount-row .amount { font-size:28px; font-weight:500; }
+    .account-row { display:flex; align-items:center; gap: var(--space-25); font-size:12px; font-weight:500; }
     .account-row img { width:16px; height:16px; }
     .view-all-bar {
       background: var(--color-brand); color:white; border-radius: 0 0 var(--radius-2xlg) var(--radius-2xlg);
       display:flex; align-items:center; justify-content:space-between; padding: var(--space-300) var(--space-450);
-      font-size:12px; font-weight:700; border:none; width:100%; cursor:pointer; font-family: var(--font);
+      font-size:12px; font-weight:500; border:none; width:100%; cursor:pointer; font-family: var(--font);
       transition: filter 0.15s ease;
     }
     .view-all-bar:active { filter: brightness(0.9); }
@@ -58,11 +58,14 @@
 
     .features-row { display:flex; justify-content:space-between; margin-top: var(--space-600); }
     .feature-item { display:flex; flex-direction:column; align-items:center; gap: var(--space-200); flex:1; }
-    .feature-item span { font-size:12px; font-weight:700; color: var(--color-text-body); text-align:center; }
+    .feature-item span { font-size:12px; font-weight:500; color: var(--color-text-body); text-align:center; }
 
-    .section-label { font-size:14px; font-weight:700; color: var(--color-text-title); margin: var(--space-300) 0 0; }
+    .section-label { font-size:14px; font-weight:500; color: var(--color-text-title); margin: var(--space-300) 0 0; }
     .cross-sell { display:flex; gap: var(--space-300); margin-top: var(--space-300); }
-    .cross-sell-col1 { flex:1; display:flex; flex-direction:column; gap: var(--space-200); }
+    /* 214:130 real proportions from the Figma source -- flex:1 on both made
+       them equal width, which is what pushed Time Deposit's content too
+       narrow and let it overflow. */
+    .cross-sell-col1 { flex: 214 1 0; min-width:0; display:flex; flex-direction:column; gap: var(--space-200); }
     .cross-sell-card {
       border: 1px solid var(--color-border-default); border-radius: var(--radius-xlg); padding: var(--space-400);
       display:flex; align-items:center; gap: var(--space-200); cursor:pointer; transition: background 0.15s ease;
@@ -70,19 +73,23 @@
     .cross-sell-card:active { background: #f7f9fc; }
     .cross-sell-card .icon-button { background: var(--color-brand-secondary); color: var(--color-brand); flex-shrink:0; }
     .cross-sell-card .text { flex:1; min-width:0; }
-    .cross-sell-card .text .label { font-size:12px; font-weight:700; color: var(--color-text-title); }
-    .cross-sell-card .text .lower { font-size:10px; color: var(--color-text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cross-sell-card .text .label { font-size:12px; font-weight:500; color: var(--color-text-title); }
+    .cross-sell-card .text .lower { font-size:10px; font-weight:500; color: var(--color-text-secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .chevron { width:20px; height:20px; flex-shrink:0; }
     .time-deposit {
-      flex:1; border: 1px solid var(--color-border-default); border-radius: var(--radius-xlg); padding: var(--space-400);
+      flex: 130 1 0; min-width:0; border: 1px solid var(--color-border-default); border-radius: var(--radius-xlg); padding: var(--space-400);
       display:flex; flex-direction:column; justify-content:space-between; cursor:pointer;
     }
     .time-deposit .top { display:flex; align-items:center; justify-content:space-between; }
     .time-deposit .icon-button { background: var(--color-brand-secondary); color: var(--color-brand); }
-    .time-deposit .label { font-size:12px; font-weight:700; color: var(--color-text-title); margin-top: var(--space-400); }
-    .time-deposit .lower { font-size:10px; color: var(--color-text-secondary); }
+    .time-deposit .label { font-size:12px; font-weight:500; color: var(--color-text-title); margin-top: var(--space-400); }
+    .time-deposit .lower { font-size:10px; font-weight:500; color: var(--color-text-secondary); }
 
-    .ads-row { display:flex; gap: var(--space-400); margin-top: var(--space-300); overflow-x:auto; }
+    .ads-row {
+      display:flex; gap: var(--space-400); margin-top: var(--space-300); overflow-x:auto;
+      scrollbar-width: none;
+    }
+    .ads-row::-webkit-scrollbar { display: none; }
     .ad-tile { width:154px; height:156px; border-radius: var(--radius-md); flex-shrink:0; }
 
     .footer { text-align:center; padding: var(--space-1200) var(--space-400) var(--space-600); }
@@ -102,8 +109,8 @@
     .nav-item .nav-icon-wrap { width:56px; height:32px; display:flex; align-items:center; justify-content:center; border-radius: var(--radius-pill); }
     .nav-item.selected .nav-icon-wrap { background: var(--color-brand-secondary); }
     .nav-item .nav-icon-wrap img { width:20px; height:20px; }
-    .nav-item span { font-size:10px; font-weight:700; }
-    .nav-item .avatar { width:24px; height:24px; border-radius:50%; background:var(--color-brand); color:white; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; }
+    .nav-item span { font-size:10px; font-weight:500; }
+    .nav-item .avatar { width:24px; height:24px; border-radius:50%; background:var(--color-brand); color:white; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:500; }
   </style>
 </head>
 <body>
@@ -242,7 +249,7 @@
       </div>
 
       <div class="footer">
-        <img src="assets/rcbc-logo.png" alt="RCBC" />
+        <img src="assets/rcbc-logo-small.svg" alt="RCBC" />
         <p>
           RCBC is regulated by the Bangko Sentral ng Pilipinas. BSP Consumer Protection Department
           8708-7087 | consumeraffairs@bsp.gov.ph.<br /><br />
