@@ -78,21 +78,24 @@ body {
    pinned in place while everything else scrolls underneath -- matching this
    repo's rule that these four elements are always Fixed, never Scrolls. */
 
-.status-bar {
+.status-bar-wrap {
   position: sticky;
   top: 0;
   z-index: 30;
+  height: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.status-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 44px;
   padding: 0 var(--space-600);
-  margin-bottom: -44px;
   font-size: 15px;
   font-weight: 600;
   color: var(--color-text-title);
   background: transparent;
-  pointer-events: none;
 }
 .status-bar .icons { display: flex; gap: 6px; align-items: center; }
 
