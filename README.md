@@ -15,6 +15,8 @@ Screenshots, click-zones, and internal process live in the private repo. This re
 - Status Bar, App Bar, and Navigation Bar all stay fixed in place while the screen's own content scrolls underneath — the screen is a real bounded phone-height viewport with its own internal scroll, not an ever-growing page.
 - Microsoft Clarity is wired in for usability-test tracking (tap heatmaps, session time, drop-off) — replace `PROJECT_ID` in both pages' `<head>` with a real Clarity project ID before sharing a test link.
 
+**`pilot/`**: a password-protected prototype of Log In → OTP → Dashboard. The page is encrypted, so its contents can't be read without the password.
+
 ## What this is not
 
 Not a real login — the test credential is fixed, and never shown in the UI itself; whoever runs the test hands it to testers directly. Never type a real account's credentials into this or any prototype like it.
